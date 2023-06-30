@@ -31,39 +31,39 @@
               </el-form-item>
 
 
-                <el-form-item label="后端地址:">
-                  <el-autocomplete
-                      style="width: 100%"
-                      v-model="form.customBackend"
-                      :fetch-suggestions="backendSearch"
-                      placeholder="留空则使用本站后端"
+              <el-form-item label="后端地址:">
+                <el-autocomplete
+                    style="width: 100%"
+                    v-model="form.customBackend"
+                    :fetch-suggestions="backendSearch"
+                    placeholder="留空则使用本站后端"
+                >
+                  <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
+                </el-autocomplete>
+              </el-form-item>
+              <el-form-item label="远程配置:">
+                <el-select
+                    v-model="form.remoteConfig"
+                    allow-create
+                    filterable
+                    placeholder="请选择"
+                    style="width: 100%"
+                >
+                  <el-option-group
+                      v-for="group in options.remoteConfig"
+                      :key="group.label"
+                      :label="group.label"
                   >
-                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
-                  </el-autocomplete>
-                </el-form-item>
-                <el-form-item label="远程配置:">
-                  <el-select
-                      v-model="form.remoteConfig"
-                      allow-create
-                      filterable
-                      placeholder="请选择"
-                      style="width: 100%"
-                  >
-                    <el-option-group
-                        v-for="group in options.remoteConfig"
-                        :key="group.label"
-                        :label="group.label"
-                    >
-                      <el-option
-                          v-for="item in group.options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                      ></el-option>
-                    </el-option-group>
-                    <el-button slot="append" @click="gotoRemoteConfig" icon="el-icon-link">配置示例</el-button>
-                  </el-select>
-                </el-form-item>
+                    <el-option
+                        v-for="item in group.options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    ></el-option>
+                  </el-option-group>
+                  <el-button slot="append" @click="gotoRemoteConfig" icon="el-icon-link">配置示例</el-button>
+                </el-select>
+              </el-form-item>
               <div v-if="advanced === '2'">
                 <el-form-item label="Include:">
                   <el-input v-model="form.includeRemarks" placeholder="节点名包含的关键字，支持正则"/>
@@ -629,7 +629,8 @@ export default {
           "&url=" +
           encodeURIComponent(sourceSub) +
           "&insert=" +
-          this.form.insert;
+          this.form.insert +
+          "&config=" + encodeURIComponent(this.form.remoteConfig);
 
       if (this.advanced === "2") {
         if (this.form.remoteConfig !== "") {
