@@ -629,14 +629,14 @@ export default {
           "&url=" +
           encodeURIComponent(sourceSub) +
           "&insert=" +
-          this.form.insert +
-          "&config=" + encodeURIComponent(this.form.remoteConfig);
+          this.form.insert;
 
-      if (this.advanced === "2") {
-        if (this.form.remoteConfig !== "") {
+      if (this.form.remoteConfig !== "") {
           this.customSubUrl +=
               "&config=" + encodeURIComponent(this.form.remoteConfig);
-        }
+      }
+
+      if (this.advanced === "2") {
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
               "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
